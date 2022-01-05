@@ -20,8 +20,11 @@ class _AddConsignorState extends State<AddConsignor> {
 
   //error visiblity
   bool _namerror = false;
-
-
+  bool _addresserror = false;
+  bool _pincodeerror = false;
+  bool _mobilenumbererror = false;
+  bool _emailerror = false;
+  bool _errortext = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +61,7 @@ class _AddConsignorState extends State<AddConsignor> {
      suffixIcon: Visibility(
        visible: _namerror,
        child: Icon(
-         Icons.check_circle,color: Colors.red,
+         Icons.error_outlined,color: Colors.red,
        ),
      ),
      enabledBorder: UnderlineInputBorder(
@@ -84,9 +87,12 @@ Padding(
        color: Color(0xFF6200EE),
      ),
      helperText: 'Eg.Gidc',
-    //  suffixIcon: Icon(
-    //    Icons.check_circle,
-    //  ),
+     suffixIcon:  Visibility(
+       visible: _addresserror,
+       child: Icon(
+         Icons.error_outlined,color: Colors.red,
+       ),
+     ),
      enabledBorder: UnderlineInputBorder(
        borderSide: BorderSide(color: Color(0xFF6200EE)),
      ),
@@ -110,9 +116,12 @@ Padding(
        color: Color(0xFF6200EE),
      ),
      helperText: 'Eg.360001',
-    //  suffixIcon: Icon(
-    //    Icons.check_circle,
-    //  ),
+     suffixIcon: Visibility(
+       visible: _pincodeerror,
+       child: Icon(
+         Icons.error_outlined,color: Colors.red,
+       ),
+     ),
      enabledBorder: UnderlineInputBorder(
        borderSide: BorderSide(color: Color(0xFF6200EE)),
      ),
@@ -137,9 +146,12 @@ Padding(
        color: Color(0xFF6200EE),
      ),
      helperText: 'Eg.9999999999',
-    //  suffixIcon: Icon(
-    //    Icons.check_circle,
-    //  ),
+     suffixIcon: Visibility(
+       visible: _mobilenumbererror,
+       child: Icon(
+         Icons.error_outlined,color: Colors.red,
+       ),
+     ),
      enabledBorder: UnderlineInputBorder(
        borderSide: BorderSide(color: Color(0xFF6200EE)),
      ),
@@ -163,9 +175,12 @@ Padding(
        color: Color(0xFF6200EE),
      ),
      helperText: 'Eg.xyz@abc.com',
-    //  suffixIcon: Icon(
-    //    Icons.check_circle,
-    //  ),
+     suffixIcon:  Visibility(
+       visible: _emailerror,
+       child: Icon(
+         Icons.error_outlined,color: Colors.red,
+       ),
+     ),
      enabledBorder: UnderlineInputBorder(
        borderSide: BorderSide(color: Color(0xFF6200EE)),
      ),
@@ -199,6 +214,15 @@ Padding(
    ),
  ),
         ),
+//error text
+Padding(
+  padding: const EdgeInsets.all(8.0),
+  child:   Visibility(
+  
+    visible: _errortext,
+  
+    child: Text("Mandatory detils are not filled",style: TextStyle(color: Colors.white,backgroundColor: Colors.red,fontSize: 12.0))),
+),
 //add button
 
 Padding(
@@ -206,7 +230,44 @@ Padding(
   child:   ElevatedButton(
   
     onPressed: () {
-  
+      //show name error
+  if(_name.text.length == 0){
+    setState(() {
+      _namerror = true;
+    });
+  }
+  // show address error
+  if(_address.text.length == 0){
+    setState(() {
+      _addresserror = true;
+    });
+  }
+  // show pincode error
+  if(_pincode.text.length == 0){
+    setState(() {
+      _pincodeerror = true;
+    });
+  }
+  //show mobile number error
+  if(_mobilenumber.text.length == 0){
+    setState(() {
+      _mobilenumbererror = true;
+    });
+  }
+  // show email error
+ if(_email.text.length == 0){
+    setState(() {
+      _emailerror = true;
+    });
+  }
+if(_name.text.length == 0 ||_address.text.length == 0 ||_pincode.text.length == 0 || _mobilenumber.text.length == 0 || _email.text.length == 0){
+setState(() {
+  _errortext = true;
+});
+}else{
+  print("form submitted");
+}
+
         // Respond to button press
   
     },
