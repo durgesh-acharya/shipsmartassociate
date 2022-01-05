@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:shipsmart/utility/crud.dart';
 
 class AddConsignor extends StatefulWidget {
-  const AddConsignor({ Key? key }) : super(key: key);
+
 
   @override
   _AddConsignorState createState() => _AddConsignorState();
 }
 
 class _AddConsignorState extends State<AddConsignor> {
+
+  // Crud Class object
+   Crud crud = new Crud();
 
   //textediting controlloer
 
@@ -25,6 +29,8 @@ class _AddConsignorState extends State<AddConsignor> {
   bool _mobilenumbererror = false;
   bool _emailerror = false;
   bool _errortext = false;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +141,7 @@ Padding(
           padding: const EdgeInsets.all(14.0),
           child: TextFormField(
             controller: _mobilenumber,
-            keyboardType: TextInputType.name,
+            keyboardType: TextInputType.number,
    cursorColor: Theme.of(context).cursorColor,
   //  initialValue: ' Eg.ABC Enterprise',
    maxLength: 10,
@@ -265,7 +271,9 @@ setState(() {
   _errortext = true;
 });
 }else{
-  print("form submitted");
+  
+  // print("form submitted");
+  crud.createConsignor(_name.text,_address.text,_pincode.text,_mobilenumber.text,_email.text, _gstin.text);
 }
 
         // Respond to button press
