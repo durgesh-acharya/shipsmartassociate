@@ -8,18 +8,42 @@ class AddConsignor extends StatefulWidget {
 }
 
 class _AddConsignorState extends State<AddConsignor> {
+
+  //textediting controlloer
+
+  TextEditingController _name = TextEditingController();
+   TextEditingController _address = TextEditingController();
+    TextEditingController _pincode = TextEditingController();
+     TextEditingController _mobilenumber = TextEditingController();
+      TextEditingController _email = TextEditingController();
+       TextEditingController _gstin = TextEditingController();
+
+  //error visiblity
+  bool _namerror = false;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          GestureDetector(
+            child: Icon(Icons.arrow_back),
+            onTap: (){
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
       body: ListView(children: [
-        SizedBox(height:35.0),
+        SizedBox(height:15.0),
 
 // name text filed
 
         Padding(
           padding: const EdgeInsets.all(14.0),
           child: TextFormField(
+            controller: _name,
             keyboardType: TextInputType.name,
    cursorColor: Theme.of(context).cursorColor,
   //  initialValue: ' Eg.ABC Enterprise',
@@ -31,9 +55,12 @@ class _AddConsignorState extends State<AddConsignor> {
        color: Color(0xFF6200EE),
      ),
      helperText: 'Eg.ABC Enterprise',
-    //  suffixIcon: Icon(
-    //    Icons.check_circle,
-    //  ),
+     suffixIcon: Visibility(
+       visible: _namerror,
+       child: Icon(
+         Icons.check_circle,color: Colors.red,
+       ),
+     ),
      enabledBorder: UnderlineInputBorder(
        borderSide: BorderSide(color: Color(0xFF6200EE)),
      ),
@@ -45,6 +72,7 @@ class _AddConsignorState extends State<AddConsignor> {
 Padding(
           padding: const EdgeInsets.all(14.0),
           child: TextFormField(
+            controller: _address,
             keyboardType: TextInputType.name,
    cursorColor: Theme.of(context).cursorColor,
   //  initialValue: ' Eg.ABC Enterprise',
@@ -70,6 +98,7 @@ Padding(
 Padding(
           padding: const EdgeInsets.all(14.0),
           child: TextFormField(
+            controller: _pincode,
             keyboardType: TextInputType.number,
    cursorColor: Theme.of(context).cursorColor,
   //  initialValue: ' Eg.ABC Enterprise',
@@ -96,6 +125,7 @@ Padding(
   Padding(
           padding: const EdgeInsets.all(14.0),
           child: TextFormField(
+            controller: _mobilenumber,
             keyboardType: TextInputType.name,
    cursorColor: Theme.of(context).cursorColor,
   //  initialValue: ' Eg.ABC Enterprise',
@@ -121,6 +151,7 @@ Padding(
 Padding(
           padding: const EdgeInsets.all(14.0),
           child: TextFormField(
+            controller: _email,
             keyboardType: TextInputType.emailAddress,
    cursorColor: Theme.of(context).cursorColor,
   //  initialValue: ' Eg.ABC Enterprise',
@@ -147,6 +178,7 @@ Padding(
     Padding(
           padding: const EdgeInsets.all(14.0),
           child: TextFormField(
+            controller: _gstin,
             keyboardType: TextInputType.text,
    cursorColor: Theme.of(context).cursorColor,
   //  initialValue: ' Eg.ABC Enterprise',
@@ -169,11 +201,19 @@ Padding(
         ),
 //add button
 
-ElevatedButton(
-  onPressed: () {
-      // Respond to button press
-  },
-  child: Text('Add '),
+Padding(
+  padding: const EdgeInsets.all(8.0),
+  child:   ElevatedButton(
+  
+    onPressed: () {
+  
+        // Respond to button press
+  
+    },
+  
+    child: Text('Add'),
+  
+  ),
 )
       ],),
     );
