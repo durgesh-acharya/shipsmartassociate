@@ -1,5 +1,9 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:shipsmart/utility/crud.dart';
+import 'package:shipsmart/screens/addconsignorsuccess.dart';
+
 
 class AddConsignor extends StatefulWidget {
 
@@ -10,8 +14,52 @@ class AddConsignor extends StatefulWidget {
 
 class _AddConsignorState extends State<AddConsignor> {
 
-  // Crud Class object
-   Crud crud = new Crud();
+//add consignor method
+Future createConsignor(String name,String address, String pincode, String mobilenumber, String email, String gst)async{
+Map consignormap = {
+'coo':1,
+'associate':1,
+'name' : name,
+'address' : address,
+'pincode' : pincode,
+'mobile' : mobilenumber,
+'email' : email,
+'gst' : gst,
+'active':1,
+'password' : '123455'
+};
+
+final String url = "http://shipsmart-env.eba-4nc5kenf.us-east-2.elasticbeanstalk.com/consignor/create";
+
+var response = await http.post(Uri.parse(url),
+  headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(consignormap) 
+);
+
+
+if (response.statusCode == 200){
+  
+  var jsonresponse = jsonDecode(response.body);
+  var insertedid = jsonresponse['id'];
+  var status = jsonresponse['status'];
+    Timer(Duration(seconds: 3), (){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => AddConsignorSuccess(insertedid)));
+    });
+
+}else{
+  print("opps");
+}
+
+}
+
+//navigation on timer
+
+Widget progressindicator(BuildContext context){
+  return Center(child: CircularProgressIndicator(backgroundColor: Colors.blue,),);
+}
 
   //textediting controlloer
 
@@ -271,9 +319,15 @@ setState(() {
   _errortext = true;
 });
 }else{
-  
+  progressindicator(context);
   // print("form submitted");
-  crud.createConsignor(_name.text,_address.text,_pincode.text,_mobilenumber.text,_email.text, _gstin.text);
+  Timer(Duration(seconds: 3), (){
+createConsignor(_name.text,_address.text,_pincode.text,_mobilenumber.text,_email.text, _gstin.text);
+  });
+
+
+
+
 }
 
         // Respond to button press
