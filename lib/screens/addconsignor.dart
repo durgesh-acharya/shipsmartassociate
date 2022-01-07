@@ -44,10 +44,12 @@ if (response.statusCode == 200){
   var jsonresponse = jsonDecode(response.body);
   var insertedid = jsonresponse['id'];
   var status = jsonresponse['status'];
-    Timer(Duration(seconds: 3), (){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
+    Future.delayed(Duration(milliseconds: 1000),(){
+ Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (BuildContext context) => AddConsignorSuccess(insertedid)));
     });
+     
+ 
 
 }else{
   print("opps");
@@ -55,11 +57,7 @@ if (response.statusCode == 200){
 
 }
 
-//navigation on timer
 
-Widget progressindicator(BuildContext context){
-  return Center(child: CircularProgressIndicator(backgroundColor: Colors.blue,),);
-}
 
   //textediting controlloer
 
@@ -319,15 +317,10 @@ setState(() {
   _errortext = true;
 });
 }else{
-  progressindicator(context);
-  // print("form submitted");
-  Timer(Duration(seconds: 3), (){
-createConsignor(_name.text,_address.text,_pincode.text,_mobilenumber.text,_email.text, _gstin.text);
-  });
-
-
-
-
+ 
+    createConsignor(_name.text,_address.text,_pincode.text,_mobilenumber.text,_email.text, _gstin.text);
+  
+  
 }
 
         // Respond to button press
