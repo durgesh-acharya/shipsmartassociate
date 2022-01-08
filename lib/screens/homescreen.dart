@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shipsmart/screens/consignor.dart';
+import 'package:shipsmart/screens/consignorscreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({ Key? key }) : super(key: key);
@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: GestureDetector(
               onTap: (){
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => Consignor()));
+                builder: (BuildContext context) => ConsignorScreen()));
               },
               child: Container(
                 width: 120.0,
