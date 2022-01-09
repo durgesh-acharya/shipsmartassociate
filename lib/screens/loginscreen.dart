@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0)))),
       onPressed: (){
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
+        Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => HomeScreen()));
       },
       child: Text(

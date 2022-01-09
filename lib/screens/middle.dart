@@ -15,7 +15,7 @@ class _MiddleState extends State<Middle> {
 
   movetonextscreen(){
     Timer(Duration(seconds : 3), (){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
+      Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => LoginScreen()));
     });
   }

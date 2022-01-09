@@ -18,7 +18,7 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
             padding: const EdgeInsets.only(right :18.0),
             child: GestureDetector(
               onTap: (){
-                     Navigator.of(context).pushReplacement(MaterialPageRoute(
+                     Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) => AddConsignor()));
               },
               child: Row(

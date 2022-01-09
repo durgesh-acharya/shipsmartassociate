@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Center(
             child: GestureDetector(
               onTap: (){
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => ConsignorScreen()));
               },
               child: Container(
