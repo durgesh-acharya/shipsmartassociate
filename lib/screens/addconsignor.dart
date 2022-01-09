@@ -81,14 +81,9 @@ if (response.statusCode == 200){
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          GestureDetector(
-            child: Icon(Icons.arrow_back),
-            onTap: (){
-              Navigator.of(context).pop();
-            },
-          )
-        ],
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon:Icon(Icons.arrow_back)),
       ),
       body: ListView(children: [
         SizedBox(height:15.0),

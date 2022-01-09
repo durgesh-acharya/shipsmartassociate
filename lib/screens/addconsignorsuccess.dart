@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shipsmart/model/consignor.dart';
+import 'package:shipsmart/screens/consignorscreen.dart';
 
 
 class AddConsignorSuccess extends StatefulWidget {
@@ -52,6 +54,23 @@ class _AddConsignorSuccessState extends State<AddConsignorSuccess> {
               )
             ),
           ),
+          Visibility(
+            visible: textvisiblity,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: OutlinedButton(
+                
+            onPressed: () {
+                // Respond to button press
+                Future.delayed(Duration(milliseconds: 1000),(){
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => ConsignorScreen()));
+                });
+            },
+            child: Text("Okay",style: TextStyle(color: Colors.white),
+          ),
+            )),
+          )
         ],
       ),
     );
