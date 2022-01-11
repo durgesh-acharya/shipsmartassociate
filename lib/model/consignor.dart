@@ -1,3 +1,4 @@
+// @dart=2.9
 // To parse this JSON data, do
 //
 //     final consignor = consignorFromJson(jsonString);
@@ -10,18 +11,18 @@ String consignorToJson(Consignor data) => json.encode(data.toJson());
 
 class Consignor {
     Consignor({
-        required this.consignorid,
-        required this.consignorcoo,
-        required this.consignorassociate,
-         required this.consignorname,
-       required this.consignoraddress,
-       required this.consignorpincode,
-       required this.consignormob,
-       required this.consignoremail,
-       required this.consignorgst,
-       required this.consignoractive,
-        required this.consignorpassword,
-      required this.consignordatetime,
+         this.consignorid,
+         this.consignorcoo,
+         this.consignorassociate,
+          this.consignorname,
+        this.consignoraddress,
+        this.consignorpincode,
+        this.consignormob,
+        this.consignoremail,
+        this.consignorgst,
+        this.consignoractive,
+         this.consignorpassword,
+       this.consignordatetime,
     });
 
     int consignorid;
@@ -53,16 +54,16 @@ class Consignor {
     );
 
     Map<String, dynamic> toJson() => {
-        "consignorid": consignorid as String,
-        "consignorcoo": consignorcoo as String,
-        "consignorassociate": consignorassociate as String,
+        "consignorid": consignorid,
+        "consignorcoo": consignorcoo,
+        "consignorassociate": consignorassociate,
         "consignorname": consignorname,
         "consignoraddress": consignoraddress,
-        "consignorpincode": consignorpincode as String,
+        "consignorpincode": consignorpincode,
         "consignormob": consignormob,
         "consignoremail": consignoremail,
         "consignorgst": consignorgst,
-        "consignoractive": consignoractive as String,
+        "consignoractive": consignoractive,
         "consignorpassword": consignorpassword,
         "consignordatetime": consignordatetime,
     };
