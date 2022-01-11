@@ -38,7 +38,7 @@ class Consignor {
     String consignordatetime;
 
     factory Consignor.fromJson(Map<String, dynamic> json) => Consignor(
-        consignorid: json["consignorid"],
+        consignorid: json["consignorid"] ,
         consignorcoo: json["consignorcoo"],
         consignorassociate: json["consignorassociate"],
         consignorname: json["consignorname"],
@@ -53,16 +53,16 @@ class Consignor {
     );
 
     Map<String, dynamic> toJson() => {
-        "consignorid": consignorid,
-        "consignorcoo": consignorcoo,
-        "consignorassociate": consignorassociate,
+        "consignorid": consignorid as String,
+        "consignorcoo": consignorcoo as String,
+        "consignorassociate": consignorassociate as String,
         "consignorname": consignorname,
         "consignoraddress": consignoraddress,
-        "consignorpincode": consignorpincode,
+        "consignorpincode": consignorpincode as String,
         "consignormob": consignormob,
         "consignoremail": consignoremail,
         "consignorgst": consignorgst,
-        "consignoractive": consignoractive,
+        "consignoractive": consignoractive as String,
         "consignorpassword": consignorpassword,
         "consignordatetime": consignordatetime,
     };

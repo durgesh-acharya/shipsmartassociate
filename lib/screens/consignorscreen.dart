@@ -15,16 +15,22 @@ class ConsignorScreen extends StatefulWidget {
 class _ConsignorScreenState extends State<ConsignorScreen> {
     int associate = 1;
     
-    Future<Consignor?> getConsignor()async{
+    Future<List<Consignor?>> getConsignor()async{
       
       var response = await http.get(Uri.parse("http://shipsmart-env.eba-4nc5kenf.us-east-2.elasticbeanstalk.com/consignor/byassociate/${associate}"));
       var jsonresponse = jsonDecode(response.body);
-
-      if(response.statusCode == 200){
-        return Consignor.fromJson((jsonresponse));
-      }
+      var resultdata = jsonresponse['data'];
+      print(resultdata);
+        return resultdata.map((json) =>Consignor.fromJson(json)).toList();
      
     }
+
+    @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getConsignor();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +54,32 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
           )
         ],
       ),
-      body: Center(child: Text("Loading...."),),
+      body: Center(child: FutureBuilder(
+        future : getConsignor(),
+        builder: (BuildContext context, AsyncSnapshot snapshot){
+          if(snapshot.hasData){
+            return ListView.builder(
+              itemCount: 2,
+              itemBuilder: (context,index){
+                return Card(
+                  child: Column(
+                    crossAxisAlignment:CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(snapshot.data[index].consignorname),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(snapshot.data[index].consignoraddress),
+                      )
+                    ],
+                  ),
+                );
+              });
+          }
+          return Text("No data");
+        }),),
     );
   }
 }
