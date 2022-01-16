@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -6,6 +7,8 @@ import 'package:shipsmart/screens/addconsignorsuccess.dart';
 
 
 class AddConsignor extends StatefulWidget {
+  int eventcode;
+  AddConsignor(this.eventcode);
 
 
   @override
@@ -44,10 +47,13 @@ if (response.statusCode == 200){
   var jsonresponse = jsonDecode(response.body);
   var insertedid = jsonresponse['id'];
   var status = jsonresponse['status'];
+  if(widget.eventcode == 0){
     Future.delayed(Duration(milliseconds: 1000),(){
  Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (BuildContext context) => AddConsignorSuccess(insertedid)));
     });
+  }
+    
      
  
 

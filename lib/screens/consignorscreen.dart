@@ -22,20 +22,12 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
       var response = await http.get(Uri.parse("http://shipsmart-env.eba-4nc5kenf.us-east-2.elasticbeanstalk.com/consignor/byassociate/${associate}"));
      var jsondata = jsonDecode(response.body);
     
-     if(jsondata[0]["status"] == true){
-      var jdata = jsondata[0]["data"];
-      print(jdata);
-      return jdata.map((json) => Consignor.fromJson(json)).toList();
-      //  return data.map((json) => Consignor.fromJson(json)).toList();
-      //  return Consignor.fromJson(jdata); 
-     }
-    //   final resultdata = jsondata[0]["data"];
-    //   print(resultdata);
-    //     // return resultdata.map((json) =>Consignor.fromJson(json)).toList();
-    //     return resultdata;
-   
-        
- 
+      if(jsondata[0]["status"] == true){
+        var jdata = jsondata[0]["data"];
+        print(jdata);
+        return jdata.map((json) => Consignor.fromJson(json)).toList();
+      
+      }
     } 
 
     @override
@@ -55,7 +47,7 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
             child: GestureDetector(
               onTap: (){
                      Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => AddConsignor()));
+                  builder: (BuildContext context) => AddConsignor(0)));
               },
               child: Row(
                 children: [
@@ -74,21 +66,36 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
             return Text("No Consignor to show");
           }
           return ListView.builder(
-            // itemCount: snapshot.data.result.length,
+            itemCount: snapshot.data.length == 0 ? 0 : snapshot.data.length,
             itemBuilder: (context,int index){    
               return Card(
-                child: Column(
-                  children: [
-                    
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(snapshot.data[index].consignorname),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(snapshot.data[index].consignoraddress),
-                    )
-                  ],
+                
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          
+                          Text(snapshot.data[index].consignorname,style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,color: Colors.blue)),
+                          Padding(
+                            padding: const EdgeInsets.only(left :8.0),
+                            child: Text("(${snapshot.data[index].consignorid})"),
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Address : ${snapshot.data[index].consignoraddress}"),
+                      ),
+                      Text("Pincode : ${snapshot.data[index].consignorpincode}"),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Mobile : ${snapshot.data[index].consignormob}"),
+                      )
+                    ],
+                  ),
                 ),
               );
             });
