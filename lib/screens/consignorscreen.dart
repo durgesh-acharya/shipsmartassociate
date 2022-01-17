@@ -1,6 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
-import 'dart:ffi';
+
 
 import 'package:flutter/material.dart';
 import 'package:shipsmart/model/consignor.dart';
@@ -8,7 +8,8 @@ import 'package:shipsmart/screens/addconsignor.dart';
 import 'package:http/http.dart' as http;
 
 class ConsignorScreen extends StatefulWidget {
-
+int eventcode;
+ConsignorScreen(this.eventcode);
 
   @override
   _ConsignorScreenState createState() => _ConsignorScreenState();
@@ -16,6 +17,7 @@ class ConsignorScreen extends StatefulWidget {
 
 class _ConsignorScreenState extends State<ConsignorScreen> {
     int associate = 1;
+    String _title = "";
     
     Future getConsignor()async{
       
@@ -29,18 +31,26 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
       
       }
     } 
-
+  settitle(ecode){
+    if(ecode == 1){
+      setState(() {
+        _title = "Select Consignor";
+      });
+    }
+  }
     @override
   void initState() {
     // TODO: implement initState
     super.initState();
    getConsignor();
+   settitle(widget.eventcode);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(_title,style: TextStyle(fontSize: 12.0),),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right :18.0),
@@ -59,48 +69,51 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
           )
         ],
       ),
-      body: Center(child: FutureBuilder(
-        future: getConsignor(),
-        builder: (BuildContext context,AsyncSnapshot snapshot){
-          if(!snapshot.hasData){
-            return Text("No Consignor to show");
-          }
-          return ListView.builder(
-            itemCount: snapshot.data.length == 0 ? 0 : snapshot.data.length,
-            itemBuilder: (context,int index){    
-              return Card(
-                
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+      body: Center(child:
+          FutureBuilder(
+            future: getConsignor(),
+            builder: (BuildContext context,AsyncSnapshot snapshot){
+              if(!snapshot.hasData){
+                return Text("No Consignor to show");
+              }
+              return ListView.builder(
+                itemCount: snapshot.data.length == 0 ? 0 : snapshot.data.length,
+                itemBuilder: (context,int index){    
+                  return Card(
+                    
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
                         children: [
-                          
-                          Text(snapshot.data[index].consignorname,style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,color: Colors.blue)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              
+                              Text(snapshot.data[index].consignorname,style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,color: Colors.blue)),
+                              Padding(
+                                padding: const EdgeInsets.only(left :8.0),
+                                child: Text("(${snapshot.data[index].consignorid})"),
+                              )
+                            ],
+                          ),
                           Padding(
-                            padding: const EdgeInsets.only(left :8.0),
-                            child: Text("(${snapshot.data[index].consignorid})"),
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Address : ${snapshot.data[index].consignoraddress}"),
+                          ),
+                          Text("Pincode : ${snapshot.data[index].consignorpincode}"),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Mobile : ${snapshot.data[index].consignormob}"),
                           )
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text("Address : ${snapshot.data[index].consignoraddress}"),
-                      ),
-                      Text("Pincode : ${snapshot.data[index].consignorpincode}"),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text("Mobile : ${snapshot.data[index].consignormob}"),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            });
-        },
-      ),)
-    );
+                    ),
+                  );
+                });
+            },
+          ),
+         
+      ),);
+    
   }
 }

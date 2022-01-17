@@ -64,7 +64,7 @@ class _AddConsignorSuccessState extends State<AddConsignorSuccess> {
                 // Respond to button press
                 Future.delayed(Duration(milliseconds: 1000),(){
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => ConsignorScreen()));
+                  builder: (BuildContext context) => ConsignorScreen(0)));
                 });
             },
             child: Text("Okay",style: TextStyle(color: Colors.white),
