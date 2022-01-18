@@ -33,35 +33,21 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
       
       }
     } 
-  settitle(ecode){
-    if(ecode == 1){
-      setState(() {
-        _title = "Select Consignor";
-      });
-    }
-  }
-
-  _tapped(int evcode, int concode){
-    if(evcode == 1){
-          Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => ConsigneeScreen(evcode, concode)));
-    }else{
-      return false;
-    }
-  }
+  
+ 
     @override
   void initState() {
     // TODO: implement initState
     super.initState();
    getConsignor();
-   settitle(widget.eventcode);
+   
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_title,style: TextStyle(fontSize: 12.0),),
+        title:   Text(""),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right :18.0),
@@ -91,7 +77,14 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
                 itemCount: snapshot.data.length == 0 ? 0 : snapshot.data.length,
                 itemBuilder: (context,int index){    
                   return GestureDetector(
-                    onTap: _tapped(widget.eventcode,snapshot.data[index].consignorid),
+                    onTap:   (){
+                       if(widget.eventcode == 1 ){
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => ConsigneeScreen(widget.eventcode,snapshot.data[index].consignorid)));
+                       }else{
+                         Navigator.pop(context);
+                       }
+                    },
                     child: Card(
                       
                       child: Padding(

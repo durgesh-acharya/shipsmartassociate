@@ -33,11 +33,30 @@ class _ConsigneeScreenState extends State<ConsigneeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    appBar :AppBar(
+        title:   Text(""),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right :18.0),
+            child: GestureDetector(
+              onTap: (){
+                   print("tapped");
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.add,color: Colors.white,),
+                  Text("Add Consignor")
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
       body: Center(child: FutureBuilder(
             future: getConsignee(),
             builder: (BuildContext context,AsyncSnapshot snapshot){
               if(!snapshot.hasData){
-                return Text("No Consignor to show");
+                return Text("No Consignee to show");
               }
               return ListView.builder(
                 itemCount: snapshot.data.length == 0 ? 0 : snapshot.data.length,
