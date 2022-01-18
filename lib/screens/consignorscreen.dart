@@ -3,9 +3,11 @@ import 'dart:convert';
 
 
 import 'package:flutter/material.dart';
+import 'package:shipsmart/model/consigee.dart';
 import 'package:shipsmart/model/consignor.dart';
 import 'package:shipsmart/screens/addconsignor.dart';
 import 'package:http/http.dart' as http;
+import 'package:shipsmart/screens/consingeescreen.dart';
 
 class ConsignorScreen extends StatefulWidget {
 int eventcode;
@@ -36,6 +38,15 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
       setState(() {
         _title = "Select Consignor";
       });
+    }
+  }
+
+  _tapped(int evcode, int concode){
+    if(evcode == 1){
+          Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => ConsigneeScreen(evcode, concode)));
+    }else{
+      return false;
     }
   }
     @override
@@ -79,33 +90,36 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
               return ListView.builder(
                 itemCount: snapshot.data.length == 0 ? 0 : snapshot.data.length,
                 itemBuilder: (context,int index){    
-                  return Card(
-                    
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              
-                              Text(snapshot.data[index].consignorname,style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,color: Colors.blue)),
-                              Padding(
-                                padding: const EdgeInsets.only(left :8.0),
-                                child: Text("(${snapshot.data[index].consignorid})"),
-                              )
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("Address : ${snapshot.data[index].consignoraddress}"),
-                          ),
-                          Text("Pincode : ${snapshot.data[index].consignorpincode}"),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("Mobile : ${snapshot.data[index].consignormob}"),
-                          )
-                        ],
+                  return GestureDetector(
+                    onTap: _tapped(widget.eventcode,snapshot.data[index].consignorid),
+                    child: Card(
+                      
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                
+                                Text(snapshot.data[index].consignorname,style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,color: Colors.blue)),
+                                Padding(
+                                  padding: const EdgeInsets.only(left :8.0),
+                                  child: Text("(${snapshot.data[index].consignorid})"),
+                                )
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("Address : ${snapshot.data[index].consignoraddress}"),
+                            ),
+                            Text("Pincode : ${snapshot.data[index].consignorpincode}"),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("Mobile : ${snapshot.data[index].consignormob}"),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   );

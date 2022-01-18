@@ -33,7 +33,51 @@ class _ConsigneeScreenState extends State<ConsigneeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Consignee..."),),
+      body: Center(child: FutureBuilder(
+            future: getConsignee(),
+            builder: (BuildContext context,AsyncSnapshot snapshot){
+              if(!snapshot.hasData){
+                return Text("No Consignor to show");
+              }
+              return ListView.builder(
+                itemCount: snapshot.data.length == 0 ? 0 : snapshot.data.length,
+                itemBuilder: (context,int index){    
+                  return GestureDetector(
+                    // onTap: _tapped(widget.eventcode,snapshot.data[index].consignorid),
+                    child: Card(
+                      
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                
+                                Text(snapshot.data[index].consigneename,style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold,color: Colors.blue)),
+                                Padding(
+                                  padding: const EdgeInsets.only(left :8.0),
+                                  child: Text("(${snapshot.data[index].consigneeid})"),
+                                )
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("Address : ${snapshot.data[index].consigneeaddress}"),
+                            ),
+                            Text("Pincode : ${snapshot.data[index].consigneepincode}"),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("Mobile : ${snapshot.data[index].consigneemobile}"),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                });
+            },
+          ),),
     );
   }
 }
