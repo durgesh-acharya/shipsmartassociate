@@ -80,7 +80,7 @@ class _ConsignorScreenState extends State<ConsignorScreen> {
                     onTap:   (){
                        if(widget.eventcode == 1 ){
                           Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => ConsigneeScreen(widget.eventcode,snapshot.data[index].consignorid)));
+                  builder: (BuildContext context) => ConsigneeScreen(widget.eventcode,snapshot.data[index].consignorid,snapshot.data[index].consignorcoo)));
                        }else{
                          Navigator.pop(context);
                        }

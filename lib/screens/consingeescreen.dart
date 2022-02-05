@@ -4,11 +4,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shipsmart/model/consigee.dart';
+import 'package:shipsmart/screens/addconsigneetocoo.dart';
+
 
 class ConsigneeScreen extends StatefulWidget {
 int eventcode;
 int consignorcode;
-ConsigneeScreen(this.eventcode,this.consignorcode);
+int consignorcoo;
+ConsigneeScreen(this.eventcode,this.consignorcode,this.consignorcoo);
 
   @override
   _ConsigneeScreenState createState() => _ConsigneeScreenState();
@@ -40,12 +43,13 @@ class _ConsigneeScreenState extends State<ConsigneeScreen> {
             padding: const EdgeInsets.only(right :18.0),
             child: GestureDetector(
               onTap: (){
-                   print("tapped");
+                   Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => AddConsigneetocoo(widget.eventcode, widget.consignorcode)));
               },
               child: Row(
                 children: [
                   Icon(Icons.add,color: Colors.white,),
-                  Text("Add Consignor")
+                  Text("Add Consignee")
                 ],
               ),
             ),
