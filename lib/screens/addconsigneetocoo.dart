@@ -10,7 +10,8 @@ import 'package:shipsmart/model/tocoo.dart';
 class AddConsigneetocoo extends StatefulWidget {
 int eventcode;
 int consignorcode;
-AddConsigneetocoo(this.eventcode,this.consignorcode);
+int consignorcoo;
+AddConsigneetocoo(this.eventcode,this.consignorcode,this.consignorcoo);
 
   @override
   _AddConsigneetocooState createState() => _AddConsigneetocooState();
